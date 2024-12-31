@@ -33,6 +33,8 @@ from diffusers.models.embeddings import (
 )
 from diffusers.models.modeling_outputs import Transformer2DModelOutput
 
+
+from enhance_reference_attent import FluxEnhanceReferenceAttnProcessors
 logger = logging.get_logger(__name__)  # pylint: disable=invalid-name
 
 
@@ -158,7 +160,10 @@ class FluxTransformerBlock(nn.Module):
         self.norm1_context = AdaLayerNormZero(dim)
 
         if hasattr(F, "scaled_dot_product_attention"):
-            processor = FluxAttnProcessor2_0()
+            # processor = FluxAttnProcessor2_0()
+            # TODO: modify the processor to FluxEnhanceReferenceAttnProcessors
+            processor = FluxEnhanceReferenceAttnProcessors(scale_factor=1.0)
+            # processor = FluxEnhanceReferenceAttnProcessors()
             
         else:
             raise ValueError(

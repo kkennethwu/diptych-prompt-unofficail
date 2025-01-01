@@ -4,10 +4,10 @@ In this project we try to inplement [DiptychPrompting](https://diptychprompting.
 I use SAM2 to segment the reference image, and enhance the reference attenstion in the  Flux-Controlnet-Inpainting.
 
 ## TO-DO
-- [] manaully segmentation should be fixed with more powerful Nature Langauge Segmentation Model.
-- [] Check if there is bug in the referenece attention enhancement. (the scale_factor can only be set to 1.0 for now, while the paper set it as 1.3.)
-- [] Use lora-dsitilled version of Flux-Controlnet-Inpainting, which has faster inference speed.
-- [] Try GPD dataset which has better visual quality in food images.
+- [ ] manaully segmentation should be fixed with more powerful Nature Langauge Segmentation Model.
+- [ ] Check if there is bug in the referenece attention enhancement. (the scale_factor can only be set to 1.0 for now, while the paper set it as 1.3.)
+- [ ] Use lora-dsitilled version of Flux-Controlnet-Inpainting, which has faster inference speed.
+- [ ] Try GPD dataset which has better visual quality in food images.
 
 ## Dataset
 - [x]  Food101: https://paperswithcode.com/dataset/food-101

@@ -12,7 +12,7 @@ I use SAM2 to segment the reference image, and enhance the reference attenstion 
 ## Dataset
 - [x]  Food101: https://paperswithcode.com/dataset/food-101
 
-- [] GPD: https://github.com/Openning07/GPA
+- [ ] GPD: https://github.com/Openning07/GPA
 
 
 ## Requirments

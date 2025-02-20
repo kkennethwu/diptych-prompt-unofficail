@@ -88,8 +88,14 @@ class FluxEnhanceReferenceAttnProcessors:
         # TODO: calculate attention weights manually, find weights from (Qri, Kli) and apply scale factor, use modified attention weights 
         attn_weights = torch.matmul(query, key.transpose(-2, -1)) / math.sqrt(head_dim)
     
-        left_length = encoder_hidden_states.shape[1]
-        attn_weights[:, :, left_length:, :left_length] = attn_weights[:, :, left_length:, :left_length] * self.scale_factor    
+        # TODO: FIX here
+        lt = encoder_hidden_states.shape[1] # text_token_length
+        total_tokens = query.shape[2]  # total token length
+        l_li = (total_tokens - lt) // 2  # (Left Panel) image token length
+        l_ri = total_tokens - lt - l_li  # (Right Panel) image token length
+        qri_start, qri_end = lt + l_li, lt + l_li + l_ri   # Qri (Right Panel Query)
+        kli_start, kli_end = lt, lt + l_li     
+        attn_weights[:, :, qri_start:qri_end, kli_start:kli_end] *= self.scale_factor    
         attn_weights = torch.softmax(attn_weights, dim=-1)
     
         hidden_states = torch.matmul(attn_weights, value)

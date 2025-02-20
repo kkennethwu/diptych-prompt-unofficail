@@ -151,7 +151,7 @@ class FluxTransformerBlock(nn.Module):
     """
 
     def __init__(
-        self, dim, num_attention_heads, attention_head_dim, qk_norm="rms_norm", eps=1e-6
+        self, dim, num_attention_heads, attention_head_dim, qk_norm="rms_norm", eps=1e-6, scale_factor=1.0
     ):
         super().__init__()
 
@@ -162,7 +162,7 @@ class FluxTransformerBlock(nn.Module):
         if hasattr(F, "scaled_dot_product_attention"):
             # processor = FluxAttnProcessor2_0()
             # TODO: modify the processor to FluxEnhanceReferenceAttnProcessors
-            processor = FluxEnhanceReferenceAttnProcessors(scale_factor=1.0)
+            processor = FluxEnhanceReferenceAttnProcessors(scale_factor=scale_factor)
             # processor = FluxEnhanceReferenceAttnProcessors()
             
         else:
@@ -291,6 +291,7 @@ class FluxTransformer2DModel(
         pooled_projection_dim: int = 768,
         guidance_embeds: bool = False,
         axes_dims_rope: List[int] = [16, 56, 56],
+        scale_facttor: float = 1.0
     ):
         super().__init__()
         self.out_channels = in_channels
@@ -322,6 +323,7 @@ class FluxTransformer2DModel(
                     dim=self.inner_dim,
                     num_attention_heads=self.config.num_attention_heads,
                     attention_head_dim=self.config.attention_head_dim,
+                    scale_factor=scale_facttor
                 )
                 for i in range(self.config.num_layers)
             ]
